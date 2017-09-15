@@ -4,3 +4,5 @@ This is a PHP/MYSQL application that I wrote that shows how to incorporate a ton
 
 Setup code for page redirection
 Added the forms to the project and will finis up that section tomorrow then on to adding the database.  Plan on having this complete project done in about a week.
+
+Setup my query functions in a seperate file, adding validation rules to the project.
