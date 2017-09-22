@@ -6,3 +6,9 @@ Setup code for page redirection
 Added the forms to the project and will finis up that section tomorrow then on to adding the database.  Plan on having this complete project done in about a week.
 
 Setup my query functions in a seperate file, adding validation rules to the project.
+
+Finished Part 1.
+
+Starting Part 2 to create the forward facing pages.
+
+

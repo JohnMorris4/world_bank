@@ -19,5 +19,6 @@
     <navigation>
       <ul>
         <li><a href="<?php echo url_for('/staff/index.php'); ?>">Menu</a></li>
+        <img src="<?php echo url_for('/images/gbi_logo.png'); ?>" width="298" height="71" alt="" />
       </ul>
     </navigation>

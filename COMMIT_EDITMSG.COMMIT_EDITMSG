@@ -1,0 +1,329 @@
+Starting Phase 2 to add the forward pages
+
+# --------------
+# Please enter the commit message for your changes. Everything below
+# this paragraph is ignored, and an empty message aborts the commit.
+# Just close the window to accept your message.
+diff --git a/README.md b/README.md
+index f21ccae..9d2bc95 100644
+--- a/README.md
++++ b/README.md
+@@ -6,3 +6,9 @@ Setup code for page redirection
+ Added the forms to the project and will finis up that section tomorrow then on to adding the database.  Plan on having this complete project done in about a week.
+ 
+ Setup my query functions in a seperate file, adding validation rules to the project.
++
++Finished Part 1.
++
++Starting Part 2 to create the forward facing pages.
++
++
+diff --git a/private/shared/public_footer.php b/private/shared/public_footer.php
+new file mode 100644
+index 0000000..aa99431
+--- /dev/null
++++ b/private/shared/public_footer.php
+@@ -0,0 +1,12 @@
++  <footer>
++    <p>Copyright <?php echo date('Y'); ?>, Globe Bank International </p>
++  </footer>
++
++  <p>This is a fictitious company created by <a href="http://linkedin.com">LinkedIn Corporation, or its affiliates</a>, solely for the creation and development of educational training materials. Any resemblance to real products or services is purely coincidental. Information provided about the products or services is also fictitious and should not be construed as representative of actual products or services on the market in a similar product or service category.</p>
++
++  </body>
++</html>
++
++<?php
++  db_disconnect($db);
++?>
+diff --git a/private/shared/public_header.php b/private/shared/public_header.php
+new file mode 100644
+index 0000000..22c6bb8
+--- /dev/null
++++ b/private/shared/public_header.php
+@@ -0,0 +1,18 @@
++<!doctype html>
++
++<html lang="en">
++  <head>
++    <title>Globe Bank <?php if(isset($page_title)) { echo '- ' . h($page_title); } ?></title>
++    <meta charset="utf-8">
++    <link rel="stylesheet" media="all" href="<?php echo url_for('/stylesheets/public.css'); ?>" />
++  </head>
++
++  <body>
++
++    <header>
++      <h1>
++        <a href="<?php echo url_for('/index.php'); ?>">
++          <img src="<?php echo url_for('/images/gbi_logo.png'); ?>" width="298" height="71" alt="" />
++        </a>
++      </h1>
++    </header>
+diff --git a/private/shared/staff_header.php b/private/shared/staff_header.php
+index 5cd5c7a..4e89ed9 100644
+--- a/private/shared/staff_header.php
++++ b/private/shared/staff_header.php
+@@ -19,5 +19,6 @@
+     <navigation>
+       <ul>
+         <li><a href="<?php echo url_for('/staff/index.php'); ?>">Menu</a></li>
++        <img src="<?php echo url_for('/images/gbi_logo.png'); ?>" width="298" height="71" alt="" />
+       </ul>
+     </navigation>
+diff --git a/public/images/gbi_logo.png b/public/images/gbi_logo.png
+new file mode 100644
+index 0000000..239da8d
+Binary files /dev/null and b/public/images/gbi_logo.png differ
+diff --git a/public/index.php b/public/index.php
+index df265cd..6f0d00e 100644
+--- a/public/index.php
++++ b/public/index.php
+@@ -1,14 +1,13 @@
+-<!doctype html>
++<?php require_once('../private/initialize.php'); ?>
+ 
+-<html lang="en">
+-  <head>
+-    <title>Globe Bank</title>
+-    <meta charset="utf-8">
+-  </head>
++<?php include(SHARED_PATH . '/public_header.php'); ?>
+ 
+-  <body>
++<div id="main">
+ 
+-    <h1>Globe Bank: Coming Soon</h1>
++  <div id="page">
+ 
+-  </body>
+-</html>
++  </div>
++
++</div>
++
++<?php include(SHARED_PATH . '/public_footer.php'); ?>
+diff --git a/public/stylesheets/public.css b/public/stylesheets/public.css
+new file mode 100644
+index 0000000..9724f69
+--- /dev/null
++++ b/public/stylesheets/public.css
+@@ -0,0 +1,206 @@
++/* Site Colors:
++  #e03e52 - pink
++  #c8ced2 - grey
++  #f07b27 - orange
++  #786758 - brown
++*/
++
++html {
++  height: 100%;
++  width: 100%;
++}
++
++body {
++  width: 1100px;
++  height: 100%;
++  margin: auto;
++  border: 0;
++  font-family: Verdana, Arial, Helvetica, sans-serif;
++  font-size: 13px;
++  line-height: 15px;
++  background: #c8ced2;
++}
++
++header {
++  height: 140px;
++  width: 1100px;
++  margin: 0;
++  padding: 0;
++  text-align: left;
++  background: #e03e52;
++  color: #FFFFFF;
++}
++
++header h1 {
++  padding: 1em;
++  margin: 0;
++}
++
++#main {
++  width: 1100px;
++  height: 100%;
++  min-height: 800px;
++  margin: 0;
++  padding: 0;
++  background: #c8ced2;
++}
++
++footer {
++  clear: both;
++  height: 3em;
++  margin: 0;
++  padding: 1em;
++  text-align: center;
++  background: #e03e52;
++  color: #FFFFFF;
++}
++
++
++/* Navigation */
++
++navigation {
++  float: left;
++  width: 200px;
++  height: 100%;
++  background: #7a6855;
++}
++
++navigation a {
++  color: #FFFFFF;
++  text-decoration: none;
++}
++
++navigation a:hover {
++  color: #e03e52;
++  text-decoration: underline;
++}
++
++a {
++  color: #E03E52;
++  text-decoration: none
++}
++
++a:hover {
++  text-decoration: underline
++}
++
++ul.subjects {
++  margin-top: 20px;
++  margin-left: 20px;
++  padding: 0;
++  list-style: none;
++}
++
++ul.subjects > li {
++  margin-bottom: 1em;
++}
++
++ul.pages {
++  margin-left: 15px;
++  padding: 0;
++  list-style: none;
++  font-weight: normal;
++}
++
++.selected > a {
++  color: #f07b27;
++  font-style: normal;
++}
++
++navigation li {
++  font-size: 16px;
++  line-height: 1.5em;
++}
++
++
++/* Page Content */
++
++#hero-image {
++  float: left;
++  margin-bottom: 40px;
++  padding: 0;
++  height: 200px;
++  width: 900px;
++}
++
++#page {
++  float: right;
++  width: 900px;
++  height: 100%;
++  padding-left: 0;
++  vertical-align: top;
++  background: #ffffff;
++}
++
++#page h1 {
++  font-size: 16px;
++  color: #000000;
++  line-height: normal;
++}
++
++#page h2 {
++  font-size: 14px;
++  color: #000000;
++  line-height: normal;
++}
++
++#page p {
++  font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" font-size: 12px;
++  color: #000000;
++  padding: 0px;
++  line-height: normal;
++}
++
++#page h3 {
++  font-size: 14px;
++  color: #e03e52;
++}
++
++#content {
++  margin-top: 0px;
++  margin-left: 10px;
++  margin-right: 10px;
++}
++
++#content p {
++  font-size: 16px;
++  line-height: normal;
++}
++
++#content li {
++  padding: 5px;
++  font-size: 16px;
++}
++
++#disclaimer {
++  margin-left: 10px;
++  font-size: 14px;
++  line-height: normal;
++  clear: both;
++  padding: 1em;
++}
++
++/* Service blocks on homepage */
++
++#service-blocks {
++  margin-top: 50px;
++}
++
++#service-blocks .service {
++  float: left;
++  width: 250px;
++  margin-right: 40px;
++}
++
++/* Learn More links */
++
++a.learnmore {
++  color: #E03E52;
++  font-size: 14px;
++  font-weight: bold;
++  text-decoration: none
++}
++
++a.learnmore:hover {
++  text-decoration: underline
++}
+warning: LF will be replaced by CRLF in README.md.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in private/shared/public_footer.php.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in private/shared/public_header.php.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in private/shared/staff_header.php.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in public/index.php.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in public/stylesheets/public.css.
+The file will have its original line endings in your working directory.
